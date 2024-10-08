@@ -1,7 +1,7 @@
 <?php 
 $db_host = getenv('mysql_server_ip');
 $db_name = 'RoomDB';
-$db_user = 'admin';
+$db_user = 'root';
 $db_passwd = 'insecurePW';
 
 $mysqli = mysqli_connect($db_host,$db_user,$db_passwd,$db_name);
@@ -11,6 +11,6 @@ if ($mysqli->connect_error) {
     echo "Connection failed: " . $mysqli->connect_error;
 }else{
     //Debug message :).
-    //echo "connect :)";
+    echo "connect :)";
 }
 ?>

@@ -12,12 +12,10 @@ sudo git clone https://github.com/BenCNicholson/COSC349_Assignment_2.git main
 sudo mv main/ /var/www/
 
 #Copying our new config file
-sudo cp /var/www/main/webServer/webserver.conf /etc/apache2/sites-available/
+sudo cp /var/www/main/webserver.conf /etc/apache2/sites-available/
 sudo a2ensite webserver
-sudo a2ensite 000-default
+sudo a2dissite 000-default
 service apache2 restart
 echo "Setup of webserver VM has completed.">/var/log/user.log
 
-#Now time to setup our database.
-sudo chmod +x /var/www/main/database/setupDatabase.sh
-cd ./var/www/main/database/setupDatabase.sh
+

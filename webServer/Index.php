@@ -19,6 +19,8 @@
     </style>
 </head>
 <body>
-    <h1>Connect</h1>
+<?php
+include("../dbconnect")
+?>
 </body>
 </html>
