@@ -75,8 +75,6 @@ Vagrant.configure("2") do |config|
   apt-get install terraform
   runuser -l vagrant -c 'mkdir ~/.aws'
   export LC_ALL="en_US.UTF-8"
-  pip3 install boto3
-  pip3 install --upgrade awscli
 SHELL
 end
 

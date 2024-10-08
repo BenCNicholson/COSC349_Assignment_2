@@ -11,8 +11,8 @@ cd /home
 sudo git clone https://github.com/BenCNicholson/COSC349_Assignment_2.git main
 sudo mv main/ /var/www/
 #Copying our new config file
-sudo cp /var/www/main/webServer/webserver.conf /etc/apache2/sites-available/
-sudo a2ensite webserver
+sudo cp /var/www/main/adminServer/adminServer.conf /etc/apache2/sites-available/
+sudo a2ensite adminServer
 sudo a2ensite 000-default
 service apache2 restart
 echo "Setup of webserver VM has completed.">/var/log/user.log
