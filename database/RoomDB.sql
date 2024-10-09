@@ -32,8 +32,6 @@ CREATE TABLE Booking (
     cost DECIMAL(19,4) NOT NULL,
     startDate DATE NOT NULL,
     endDate DATE NOT NULL,
-    roomNumber INT NOT NULL,
-    roomDesc VARCHAR(100) NOT NULL,
     FOREIGN KEY (email) REFERENCES Client(email),
     FOREIGN KEY (roomID) REFERENCES Room(roomID),
     PRIMARY KEY (email, roomID)
