@@ -27,6 +27,7 @@
             $prepBooked = $mysqli->prepare($prepBook);
             $prepBooked->execute();
             $resBooked=$prepBooked->get_result();
+            echo "jere";
             if ($resultRoom->num_rows > 0) {
                 while($row = $result->fetch_assoc()){
                     echo "<tr>";
