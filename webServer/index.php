@@ -6,6 +6,8 @@
     <title>Index</title>
 </head>
 <body>
+<p><a href="CreateUsr.php">Create an account</a></p>
+<p><a href="http://<?php echo ADMIN_SERVER_IP; ?>">Admin Login</a></p>
 <?php
 include("../dbconnect.php");
 
@@ -154,8 +156,7 @@ echo "</table>";
     ?>
 </div>
 
-<p><a href="CreateUsr.php">Create an account</a></p>
-<p><a href="http://<?php echo ADMIN_SERVER_IP; ?>">Admin Login</a></p>
+
 
 </body>
 </html>
