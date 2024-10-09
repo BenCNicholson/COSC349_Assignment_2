@@ -134,8 +134,7 @@ echo "</table>";
                     if ($bookstmt) {
                         $bookstmt->bind_param('sssss', $email, $roomID, $Cost, $CIN, $Cout);
                         if ($bookstmt->execute()) {
-                            header("Location: index.php");
-                            exit(); 
+                           
                         } else {
                             echo "<p style='color:red;'>Error creating booking: " . $bookstmt->error . "</p>";
                         }
@@ -152,6 +151,8 @@ echo "</table>";
         } else {
             echo "<p style='color:red;'>Error preparing statement: " . $mysqli->error . "</p>";
         }
+        header("Location: index.php");
+        exit(); 
     }
     ?>
 </div>
