@@ -20,7 +20,7 @@
 </head>
 <body>
 <div class = "login-form">
-<form method="POST" action="authenticate.php">
+<form method="POST" action="">
     <input type="text" name="username" placeholder="Email" required>
     <input type="password" name="password" placeholder="Password" required>
     <input type="submit" value="Login">
