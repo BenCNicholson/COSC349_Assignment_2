@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->fetch();
         if($password ==$pw){
             setcookie("user_id", $username, time() + (86400 * 30), "/");
-            header("Location: dashboard.php");
+            header("Location: CreateUsr.php");
             exit();
         }
     }else{
