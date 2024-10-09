@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo MYSQL_SERVER_IP=${mysql_server_ip} >> /etc/environment
-
+echo ADMIN_SERVER_IP=${admin_server_ip} >> /etc/environment
 echo "Setup of webserver VM has begun.">/var/log/user.log
 
 apt-get update

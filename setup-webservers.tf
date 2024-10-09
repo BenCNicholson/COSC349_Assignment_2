@@ -83,20 +83,6 @@ resource "aws_db_instance" "mysql_server" {
   skip_final_snapshot    = true
 }
 
-resource "aws_instance" "web_server" {
-  ami           = "ami-010e83f579f15bba0"
-  instance_type = "t2.micro"
-  key_name      = "COSC349-2024"
-
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id,
-              aws_security_group.allow_web.id]
-
-  user_data = templatefile("${path.module}/build-webserver-vm.tpl", { mysql_server_ip = aws_db_instance.mysql_server.address })
-
-  tags = {
-    Name = "WebServer"
-  }
-}
 
 resource "aws_instance" "admin_server" {
   ami           = "ami-010e83f579f15bba0"
@@ -106,12 +92,28 @@ resource "aws_instance" "admin_server" {
   vpc_security_group_ids = [aws_security_group.allow_ssh.id,
               aws_security_group.allow_web.id]
 
-  user_data = templatefile("${path.module}/build-adminserver-vm.tpl", { mysql_server_ip = aws_db_instance.mysql_server.address })
+  user_data = templatefile("${path.module}/build-adminserver-vm.tpl", { mysql_server_ip = aws_db_instance.mysql_server.address, admin_server_ip = aws_instance.admin_server.public_ip})
 
   tags = {
     Name = "AdminServer"
   }
 }
+
+resource "aws_instance" "web_server" {
+  ami           = "ami-010e83f579f15bba0"
+  instance_type = "t2.micro"
+  key_name      = "COSC349-2024"
+
+  vpc_security_group_ids = [aws_security_group.allow_ssh.id,
+              aws_security_group.allow_web.id]
+
+  user_data = templatefile("${path.module}/build-webserver-vm.tpl", { mysql_server_ip = aws_db_instance.mysql_server.address})
+
+  tags = {
+    Name = "WebServer"
+  }
+}
+
 
 output "web_server_ip" {
   value = aws_instance.web_server.public_ip
