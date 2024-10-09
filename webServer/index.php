@@ -26,11 +26,13 @@ if ($resultRoom->num_rows > 0) {
         echo "<td>" . htmlspecialchars($row['number_rooms']) . "</td>";
         echo "</tr>";
     }
+
 } else {
     echo "<tr><td colspan='4'>No rooms found</td></tr>";
 }
 echo "</table>";
-
+header("Location: index.php");
+exit();
 ?>
  <div class="check-bookings">
         <h1>View Bookings</h1>
@@ -62,6 +64,7 @@ echo "</table>";
                         echo "<td>" . htmlspecialchars($row['endDate']) . "</td>";
                         echo "</tr>";
                     }
+                    ;
                 } else {
                     echo "<tr><td colspan='5'>No bookings</td></tr>";
                 }
@@ -69,6 +72,8 @@ echo "</table>";
             }else{
                 echo "<p style='color:red;'>Error executing statement: " . $stmt->error . "</p>";
             }
+            header("Location: index.php");
+            exit();
             $stmt->close();
         }else{
             echo "<p style='color:red;'>Error preparing statement: " . $mysqli->error . "</p>";
@@ -116,12 +121,13 @@ echo "</table>";
         if($prepstmt){
             $prepstmt->bind_param("s",$roomID);
             if($prepstmt->execute()){ 
-                $prepstmt->bind_result(($costPerNight));
+                $prepstmt->bind_result($costPerNight);
                 $prepstmt->fetch();
+
             }
         }
         
-        //Create booking
+      
         $checkinDate = new DateTime($CIN);
         $checkoutDate = new DateTime($Cout);
     
@@ -130,20 +136,23 @@ echo "</table>";
     
         // Get the number of days
         $days = $interval->days;
-        
-
-
-        $mysqli->close();
-    }
-  
+        $Cost = $costPerNight*$days;
+        //Create booking
+        $prepBook = "INSERT INTO Booking (email,roomID,cost,startDate,endDate) VALUES(?,?,?,?,?)";
+        $bookstmt = $mysqli->prepare($prepBook);
+        if($bookstmt){
+            $bookstmt->bind_param('sssss',$email,$roomID,$Cost,$CIN,$Cout);
+            if($prepstmt->execute()){
+                if ($prepstmt->affected_rows > 0) {
+                   
+                }
+            }    
+        }
+}
 ?>
 </div>
-
-
-
 <p><a href = "CreateUsr.php">Create an account</a></p>
-<p><a href = "http://<?php echo ADMIN_SERVER_IP; ?>"></a>Admin Login</p>
-<p><href></href></p>
-<p><href></href></p>
+<p><a href = "http://<?php echo ADMIN_SERVER_IP; ?>">Admin Login</a></p>
+
 </body>
 </html>

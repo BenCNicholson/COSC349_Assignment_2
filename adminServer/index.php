@@ -42,5 +42,6 @@
         }
         ?>
     </div>
+    <p><a href = "http://<?php echo WEB_SERVER_IP; ?>">Client Login</a></p>
 </body>
 </html>
