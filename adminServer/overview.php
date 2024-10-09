@@ -69,6 +69,8 @@ echo "</table>";
         } else {
             echo "Error preparing statement: " . $mysqli->error;
         }
+        header("Location: overview.php");
+        exit(); // Stop further execution
     }
     ?>
 </div>
@@ -112,6 +114,8 @@ echo "</table>";
         } else {
             echo "Error preparing statement: " . $mysqli->error; 
         }
+        header("Location: overview.php");
+        exit(); // Stop further execution
     }
     ?>
 </div>
