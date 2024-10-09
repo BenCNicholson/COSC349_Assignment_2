@@ -97,12 +97,13 @@ echo "</table>";
         $costPerNight = $_POST['costPerNight'];
 
         //Prepare the SQL statement to insert a new room
-        $prep = "INSERT INTO Room (roomNumber, roomDesc, number_rooms, costPerNight, isBooked) VALUES (?, ?, ?, ?, FALSE)";
+        $prep = "INSERT INTO Room (roomNumber, roomDesc, number_rooms, costPerNight, isBooked) VALUES (?, ?, ?, ?, ?)";
         $statement = $mysqli->prepare($prep);
 
         if ($statement) {
             //Bind the parameters and execute
-            $statement->bind_param("ssss", $roomNumber, $roomDesc, $number_rooms, $costPerNight);
+            $False =FALSE;
+            $statement->bind_param("sssss", $roomNumber, $roomDesc, $number_rooms, $costPerNight,$False);
             $statement->execute();
 
             if ($statement->affected_rows > 0) { 
