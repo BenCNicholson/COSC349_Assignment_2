@@ -52,7 +52,7 @@
             }else{
                 echo "No bookings";
             }
-
+            $prepBooked->close();
             $stmt->close();
         }
         ?>
