@@ -20,7 +20,7 @@
 </head>
 <body>
 <?php
-include("../dbconnect")
+include("../dbconnect.php")
 ?>
 </body>
 </html>

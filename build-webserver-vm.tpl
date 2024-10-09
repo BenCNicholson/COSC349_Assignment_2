@@ -19,5 +19,5 @@ service apache2 restart
 echo "Setup of webserver VM has completed.">/var/log/user.log
 
 sudo chmod +x /var/www/main/database/setupDatabase.sh
-cd ./var/www/main/database/setupDatabase.sh
+./var/www/main/database/setupDatabase.sh
 
