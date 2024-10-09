@@ -22,7 +22,7 @@
 
             // Prepare and execute your SQL query to check credentials
             $sqli = "SELECT * FROM Admin_ WHERE email = ? AND _password = ?";
-            $stmt = $conn->prepare($sql);
+            $stmt = $conn->prepare($sqli);
             $stmt->bind_param("ss", $username, $password); // Use appropriate types
             $stmt->execute();
             $result = $stmt->get_result();
