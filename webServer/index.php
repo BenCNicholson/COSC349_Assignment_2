@@ -19,42 +19,78 @@
     </style>
 </head>
 <body>
-<div class="login-form">
-    <form method="POST" action="">
-        <input type="text" name="username" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="submit" value="Login">
-    </form>
+<?php
+include("../dbconnect.php");
 
-    <?php 
-    include("dbconnect.php"); 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        $stmt = $mysqli->prepare("SELECT _password FROM Client WHERE email = ?");
-        if ($stmt === false) {
-            die("MySQL prepare error: " . $mysqli->error);
-        }
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $stmt->store_result();
+// Prepare and execute your SQL query to check credentials
+$resultRoom = $mysqli->query("SELECT * FROM Room WHERE isBooked = FALSE");
 
-        if ($stmt->num_rows === 1) { 
-            $stmt->bind_result($pw);
-            $stmt->fetch();
-            if ($password === $pw) {
-                setcookie("user_id", $username, time() + (86400 * 30), "/");
-                header("Location: CreateUsr.php");
-                exit();
-            } else {
-                echo "Invalid password.";
-            }
-        } else {
-            echo "No user found with that username.";
-        }
-        $stmt->close();
+
+echo "<h2>Rooms</h2>";
+echo "<table>";
+echo "<tr><th>Room ID</th><th>Description</th><th>Cost Per Night</th><th>Number of Rooms</th></tr>";
+
+if ($resultRoom->num_rows > 0) {
+    while ($row = $resultRoom->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($row['roomID']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['roomDesc']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['costPerNight']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['number_rooms']) . "</td>";
+        echo "</tr>";
     }
-    ?>
+} else {
+    echo "<tr><td colspan='4'>No rooms found</td></tr>";
+}
+echo "</table>";
+
+?>
+ <div class="check-bookings">
+        <h1>View Bookings</h1>
+        <form method="POST" action="">
+            <input type="text" name="email" placeholder="email" required>
+            <input type="submit" value="Show your bookings">
+        </form>
+
+<?php
+    include("../dbconnect.php");
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $email = $_POST['email'];
+        $prep = "SELECT * FROM Booking WHERE email = ?";
+        $stmt = $mysqli->prepare($prep);
+        if($stmt){
+            $stmt->bind_param("s",$email);
+            if($stmt->execute()){
+                echo "<h2>Bookings</h2>";
+                echo "<table>";
+                echo "<tr><th>Room ID</th><th>Email</th><th>Cost</th><th>Start Date</th><th>End Date</th></tr>";
+                
+                if ($resBooked->num_rows > 0) {
+                    while ($row = $resBooked->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($row['roomID']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['cost']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['startDate']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['endDate']) . "</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='5'>No bookings</td></tr>";
+                }
+                echo "</table>";
+            }else{
+                echo "<p style='color:red;'>Error executing statement: " . $stmt->error . "</p>";
+            }
+            $stmt->close();
+        }else{
+            echo "<p style='color:red;'>Error preparing statement: " . $mysqli->error . "</p>";
+        }
+        $mysqli->close();
+    }
+  
+?>
+
 </div>
 
 
