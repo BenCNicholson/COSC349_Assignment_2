@@ -18,9 +18,11 @@
         }
     </style>
 </head>
-<body>
+<>
+<h1> 
 <?php
-include("../dbconnect.php")
+include("../dbconnect.php");
 ?>
+</h1>
 </body>
 </html>
