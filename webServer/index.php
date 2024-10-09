@@ -3,20 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connect</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            color: #333;
-        }
-    </style>
+    <title>Index</title>
 </head>
 <body>
 <?php
@@ -26,7 +13,7 @@ include("../dbconnect.php");
 $resultRoom = $mysqli->query("SELECT * FROM Room WHERE isBooked = FALSE");
 
 
-echo "<h2>Rooms</h2>";
+echo "<h2>Rooms Available</h2>";
 echo "<table>";
 echo "<tr><th>Room ID</th><th>Description</th><th>Cost Per Night</th><th>Number of Rooms</th></tr>";
 
