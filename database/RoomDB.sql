@@ -1,5 +1,5 @@
 -- Create the database
-CREATE DATABASE roomDB;
+CREATE DATABASE IF NOT EXISTS roomDB;
 
 -- Use the database
 USE roomDB;
