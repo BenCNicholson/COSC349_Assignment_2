@@ -102,8 +102,8 @@ echo "</table>";
 
         if ($statement) {
             //Bind the parameters and execute
-            $False =FALSE;
-            $statement->bind_param("sssss", $roomNumber, $roomDesc, $number_rooms, $costPerNight,$False);
+            $isBooked = 0; // Assuming not booked
+            $statement->bind_param("ssidi", $roomNumber, $roomDesc, $number_rooms, $costPerNight, $isBooked);
             $statement->execute();
 
             if ($statement->affected_rows > 0) { 
