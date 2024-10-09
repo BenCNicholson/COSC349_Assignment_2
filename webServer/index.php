@@ -39,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_result($pw);
         $stmt->fetch();
         if($password ==$pw){
+            echo"here";
             setcookie("user_id", $username, time() + (86400 * 30), "/");
             header("Location: CreateUsr.php");
             exit();
