@@ -1,5 +1,10 @@
 <?php 
-$db_host = getenv('MYSQL_SERVER_IP');
+#Definitions, will need to input the ip address after terraform creation
+define('MYSQL_SERVER_IP','<IP>');
+define('ADMIN_SERVER_IP','<IP>');
+define('WEB_SERVER_IP','<IP>');
+#Connect to db
+$db_host = MYSQL_SERVER_IP;
 $db_name = 'roomDB';
 $db_user = 'root';
 $db_passwd = 'insecurePW';

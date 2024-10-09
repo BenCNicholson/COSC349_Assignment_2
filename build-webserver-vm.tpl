@@ -15,7 +15,7 @@ sudo mv main/ /var/www/
 sudo cp /var/www/main/webserver.conf /etc/apache2/sites-available/
 sudo a2ensite webserver
 sudo a2dissite 000-default
-service apache2 restart
+sudo service apache2 restart
 echo "Setup of webserver VM has completed.">/var/log/user.log
 
 sudo chmod +x /var/www/main/database/setupDatabase.sh
