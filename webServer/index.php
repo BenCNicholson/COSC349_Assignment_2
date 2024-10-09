@@ -6,8 +6,7 @@
     <title>Index</title>
 </head>
 <body>
-<p><a href="CreateUsr.php">Create an account</a></p>
-<p><a href="http://<?php echo ADMIN_SERVER_IP; ?>">Admin Login</a></p>
+
 <?php
 include("../dbconnect.php");
 
@@ -135,7 +134,6 @@ echo "</table>";
                     if ($bookstmt) {
                         $bookstmt->bind_param('sssss', $email, $roomID, $Cost, $CIN, $Cout);
                         if ($bookstmt->execute()) {
-                            echo "<p>Booking created successfully!</p>";
                         } else {
                             echo "<p style='color:red;'>Error creating booking: " . $bookstmt->error . "</p>";
                         }
@@ -155,7 +153,10 @@ echo "</table>";
     }
     ?>
 </div>
-
+<div class ="nav"> 
+<p><a href="CreateUsr.php">Create an account</a></p>
+<p><a href="http://<?php echo ADMIN_SERVER_IP; ?>">Admin Login</a></p>
+</div>
 
 
 </body>
