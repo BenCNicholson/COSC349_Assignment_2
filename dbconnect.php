@@ -1,6 +1,6 @@
 <?php 
 #Definitions, will need to input the ip address after terraform creation
-define('MYSQL_SERVER_IP','<IP>');
+define('MYSQL_SERVER_IP','sql-server.cvo4ama5v09p.us-east-1.rds.amazonaws.com');
 define('ADMIN_SERVER_IP','<IP>');
 define('WEB_SERVER_IP','<IP>');
 #Connect to db
