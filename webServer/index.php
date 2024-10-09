@@ -77,13 +77,72 @@ echo "</table>";
     }
   
 ?>
+</div>
+<div class="check-bookings">
+        <h1>Create Booking</h1>
+        <form method="POST" action="">
+            <input type="text" name="email" placeholder="email" required>
+            <input type="text" name="roomID" placeholder="roomID" required>
+            <input type="date" name="CIN" placeholder="Check In" required>
+            <input type="date" name="Cout" placeholder="Check Out" required>
+            <input type="submit" value="Create a Booking">
+        </form>
 
+<?php
+    include("../dbconnect.php");
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $email = $_POST['email'];
+        $roomID =$_POST['roomID'];
+        $CIN = $_POST['CIN'];
+        $Cout = $_POST['Cout'];
+
+        //Update the listing to be  booked
+        $prep = "UPDATE Room SET isBooked = TRUE WHERE roomID = ?";
+        $stmt = $mysqli->prepare($prep);
+        if($stmt){
+            $stmt->bind_param("s",$roomID);
+            if($stmt->execute()){   
+                echo "Room Booked";       
+            }else{
+                echo "<p style='color:red;'>Error executing statement: " . $stmt->error . "</p>";
+            }
+            $stmt->close();
+        }else{
+            echo "<p style='color:red;'>Error preparing statement: " . $mysqli->error . "</p>";
+        }
+        //Get the cost per day
+        $prepCost = "SELECT costPerNight FROM Room WHERE roomID = ?";
+        $prepstmt = $mysqli->prepare($prepCost);
+        if($prepstmt){
+            $prepstmt->bind_param("s",$roomID);
+            if($prepstmt->execute()){ 
+                $prepstmt->bind_result(($costPerNight));
+                $prepstmt->fetch();
+            }
+        }
+        
+        //Create booking
+        $checkinDate = new DateTime($CIN);
+        $checkoutDate = new DateTime($Cout);
+    
+        // Calculate the difference
+        $interval = $checkinDate->diff($checkoutDate);
+    
+        // Get the number of days
+        $days = $interval->days;
+        
+
+
+        $mysqli->close();
+    }
+  
+?>
 </div>
 
 
 
 <p><a href = "CreateUsr.php">Create an account</a></p>
-<p><href></href></p>
+<p><a href = "http://<?php echo ADMIN_SERVER_IP; ?>"></a>Admin Login</p>
 <p><href></href></p>
 <p><href></href></p>
 </body>
