@@ -12,7 +12,7 @@ Steps to deploy!
 ADMIN EMAIL = admin@example.com 
 ADMIN PW = root
 
-http://54.224.121.104/
+http://54.85.180.208/
 
 
 <h2>How to deploy manually</h2>
