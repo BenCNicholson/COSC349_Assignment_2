@@ -1,62 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <div class="login-form">
-        <h1>Login</h1>
-        <form method="POST" action="">
-            <input type="text" name="username" placeholder="email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="submit" value="Login">
-        </form>
+<?php
+include("../dbconnect.php");
 
-        <?php
-        include("../dbconnect.php");
+// Prepare and execute your SQL query to check credentials
+$resultRoom = $mysqli->query("SELECT * FROM Room");
+$resBooked = $mysqli->query("SELECT * FROM Booking");
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-           
-            //Prepare and execute your SQL query to check credentials
-            $prep = "SELECT * FROM Room";
-            $stmt = $mysqli->prepare($prep);
-            $stmt->execute();
-            $resultRoom = $stmt->get_result();
-            $prepBook = "SELECT * FROM Booking";
-            $prepBooked = $mysqli->prepare($prepBook);
-            $prepBooked->execute();
-            $resBooked=$prepBooked->get_result();
-            echo "jere";
-            if ($resultRoom->num_rows > 0) {
-                while($row = $result->fetch_assoc()){
-                    echo "<tr>";
-                    echo "<td>".htmlspecialchars($row['roomNumber'])."</td>";
-                    echo "<td>".htmlspecialchars($row['roomDesc'])."</td>";
-                    echo "<td>".htmlspecialchars($row['costPerNight'])."</td>";
-                    echo "<td>".htmlspecialchars($row['number_rooms'])."</td>";
-                    echo "</tr>";
-                }
-            }else{
-                echo "no rooms found";
+echo "<h2>Rooms</h2>";
+echo "<table>";
+echo "<tr><th>Room ID</th><th>Description</th><th>Cost Per Night</th><th>Number of Rooms</th></tr>";
+
+if ($resultRoom->num_rows > 0) {
+    while ($row = $resultRoom->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($row['roomID']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['roomDesc']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['costPerNight']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['number_rooms']) . "</td>";
+        echo "</tr>";
+    }
+} else {
+    echo "<tr><td colspan='4'>No rooms found</td></tr>";
+}
+echo "</table>";
+
+echo "<h2>Bookings</h2>";
+echo "<table>";
+echo "<tr><th>Room ID</th><th>Email</th><th>Cost</th><th>Start Date</th><th>End Date</th></tr>";
+
+if ($resBooked->num_rows > 0) {
+    while ($row = $resBooked->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($row['roomID']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['cost']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['startDate']) . "</td>";
+        echo "<td>" . htmlspecialchars($row['endDate']) . "</td>";
+        echo "</tr>";
+    }
+} else {
+    echo "<tr><td colspan='5'>No bookings</td></tr>";
+}
+echo "</table>";
+
+?>
+
+<div class="delete-room">
+    <h1>Delete a Room</h1>
+    <form method="POST" action="">
+        <input type="text" name="RoomID" placeholder="RoomID" required> <!-- Fixed the name attribute -->
+        <input type="submit" value="Delete">
+    </form>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $roomID = $_POST['RoomID'];
+        $prep = "DELETE FROM Room WHERE roomID = ?"; // Corrected the table name
+        $statement = $mysqli->prepare($prep);
+        
+        if ($statement) {
+            $statement->bind_param("s", $roomID);
+            $statement->execute();
+            if ($statement->affected_rows > 0) { // Fixed the typo here
+                echo "Successful deletion";
+            } else {
+                echo "No room found with that ID.";
             }
-            if($resBooked->num_rows>0){
-                while($row = $resBooked->fetch_assoc()){
-                    echo "<tr>";
-                    echo "<td>".htmlspecialchars($row['roomID'])."</td>";
-                    echo "<td>".htmlspecialchars($row['email'])."</td>";
-                    echo "<td>".htmlspecialchars($row['cost'])."</td>";
-                    echo "<td>".htmlspecialchars($row['startDate'])."</td>";
-                    echo "<td>".htmlspecialchars($row['endDate'])."</td>";
-                    echo "</tr>";
-                }
-            }else{
-                echo "No bookings";
-            }
-            $prepBooked->close();
-            $stmt->close();
+            $statement->close(); // Close the statement
+        } else {
+            echo "Error preparing statement: " . $mysqli->error; // Handle potential errors
         }
-        ?>
-    </div>
+    }
+    ?>
+</div>
 </body>
 </html>

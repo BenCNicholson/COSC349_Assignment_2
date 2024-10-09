@@ -16,6 +16,5 @@ if ($mysqli->connect_error) {
     echo "Connection failed: " . $mysqli->connect_error;
 }else{
     //Debug message :).
-    echo "connect :)";
 }
 ?>

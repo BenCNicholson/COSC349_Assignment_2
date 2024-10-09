@@ -38,7 +38,7 @@
             }
 
             $stmt->close();
-            $conn->close();
+            $mysqli->close();
         }
         ?>
     </div>
