@@ -26,10 +26,10 @@
             $stmt->bind_param("ss", $username, $password); //Use appropriate types
             $stmt->execute();
             $result = $stmt->get_result();
-            echo "here";
             if ($result->num_rows > 0) {
                 // Successful login
-                echo "<p>Login successful!</p>";
+                header("Location: overview.php");
+                exit(); // Stop further execution
                 // Redirect to another page or perform other actions here
 
             } else {
