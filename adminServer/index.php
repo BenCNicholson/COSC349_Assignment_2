@@ -9,7 +9,7 @@
         <h1>Login</h1>
         <form method="POST" action="">
             <input type="text" name="username" placeholder="email" required>
-            <input type="text" name="password" placeholder="Password" required>
+            <input type="password" name="password" placeholder="Password" required>
             <input type="submit" value="Login">
         </form>
 
@@ -21,8 +21,8 @@
             $password = $_POST['password'];
 
             //Prepare and execute your SQL query to check credentials
-            $sqli = "SELECT * FROM Admin_ WHERE email = ? AND _password = ?";
-            $stmt = $conn->prepare($sqli);
+            $prep = "SELECT * FROM Admin_ WHERE email = ? AND _password = ?";
+            $stmt = $mysqli->prepare($prep);
             $stmt->bind_param("ss", $username, $password); //Use appropriate types
             $stmt->execute();
             $result = $stmt->get_result();
