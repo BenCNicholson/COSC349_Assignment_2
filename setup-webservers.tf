@@ -111,7 +111,7 @@ resource "aws_instance" "web_server" {
   vpc_security_group_ids = [aws_security_group.allow_ssh.id,
               aws_security_group.allow_web.id]
 
-  user_data = templatefile("${path.module}/build-webserver-vm.tpl", { mysql_server_ip = aws_db_instance.mysql_server.address, admin_server_ip = = aws_eip.admin_server_ip.public_ip })
+  user_data = templatefile("${path.module}/build-webserver-vm.tpl", { mysql_server_ip = aws_db_instance.mysql_server.address, admin_server_ip = aws_eip.admin_server_ip.public_ip })
 
   tags = {
     Name = "WebServer"
