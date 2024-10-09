@@ -17,6 +17,4 @@ sudo a2dissite 000-default
 service apache2 restart
 echo "Setup of adminserver VM has completed.">/var/log/user.log
 
-#Now time to setup our database.
-sudo chmod +x /var/www/main/database/setupDatabase.sh
-cd ./var/www/main/database/setupDatabase.sh
+

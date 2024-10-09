@@ -1,6 +1,6 @@
 <?php 
-$db_host = getenv('mysql_server_ip');
-$db_name = 'RoomDB';
+$db_host = getenv('MYSQL_SERVER_IP');
+$db_name = 'roomDB';
 $db_user = 'root';
 $db_passwd = 'insecurePW';
 
