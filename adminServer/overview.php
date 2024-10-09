@@ -102,7 +102,7 @@ echo "</table>";
 
         if ($statement) {
             //Bind the parameters and execute
-            $statement->bind_param("sssd", $roomNumber, $roomDesc, $number_rooms, $costPerNight);
+            $statement->bind_param("ssss", $roomNumber, $roomDesc, $number_rooms, $costPerNight);
             $statement->execute();
 
             if ($statement->affected_rows > 0) { 
