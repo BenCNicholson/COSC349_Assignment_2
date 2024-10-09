@@ -2,7 +2,7 @@
 include("../dbconnect.php");
 
 // Prepare and execute your SQL query to check credentials
-$resultRoom = $mysqli->query("SELECT * FROM Room");
+$resultRoom = $mysqli->query("SELECT * FROM Room ");
 $resBooked = $mysqli->query("SELECT * FROM Booking");
 
 echo "<h2>Rooms</h2>";
@@ -118,6 +118,7 @@ echo "</table>";
         exit(); // Stop further execution
     }
     ?>
+    <p><a href="http://<?php echo WEB_SERVER_IP; ?>">Client Front</a></p>
 </div>
 </body>
 </html>
